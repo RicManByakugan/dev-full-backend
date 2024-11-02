@@ -14,4 +14,8 @@ python manage.py startapp publications apps/publications
 Create models
 python manage.py makemigrations
 python manage.py migrate
+update all config bd
+
+pip install djangorestframework-simplejwt
+
 
