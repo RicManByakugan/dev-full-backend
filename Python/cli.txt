@@ -18,4 +18,5 @@ update all config bd
 
 pip install djangorestframework-simplejwt
 
-
+FOR TEST
+python manage.py test apps.users

@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 
 # Model for User from AbstractUser Django
 class UserProfile(AbstractUser):
+    email = models.EmailField(unique=True)
     bio = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
     
