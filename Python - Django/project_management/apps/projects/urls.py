@@ -1,10 +1,10 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import ProjectViewSet
-
-router = DefaultRouter()
-router.register(r'projects', ProjectViewSet)
+from django.urls import path
+from .views import list_projects, create_project, retrieve_project, update_project, delete_project
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('list', list_projects, name='list-projects'),
+    path('create/', create_project, name='create-project'),
+    path('<int:pk>/', retrieve_project, name='retrieve-project'),
+    path('<int:pk>/update/', update_project, name='update-project'),
+    path('<int:pk>/delete/', delete_project, name='delete-project'),
 ]
