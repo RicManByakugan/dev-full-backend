@@ -11,3 +11,7 @@ python manage.py startapp users apps/users
 python manage.py startapp projects apps/projects
 python manage.py startapp publications apps/publications
 
+Create models
+python manage.py makemigrations
+python manage.py migrate
+
