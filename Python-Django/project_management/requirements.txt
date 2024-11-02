@@ -95,6 +95,8 @@ six==1.16.0
 sqlparse==0.2.4
 stack-data==0.6.3
 stevedore==5.2.0
+tensorboard==1.8.0
+tensorflow @ https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.8.0-py3-none-any.whl#sha256=373c637f9c4f06346b1b02e280b30517d262a1651b252ff889f7c22716ef4548
 termcolor==2.4.0
 threadpoolctl==3.4.0
 tornado==6.4

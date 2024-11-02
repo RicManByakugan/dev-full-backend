@@ -7,6 +7,7 @@ from .serializers import UserSerializer
 
 # List all users
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def list_users(request):
     users = UserProfile.objects.all()
     serializer = UserSerializer(users, many=True)
@@ -14,6 +15,7 @@ def list_users(request):
 
 # CREATE a user
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def create_user(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
@@ -23,6 +25,7 @@ def create_user(request):
 
 # RETRIEVE a user by ID
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def retrieve_user(request, pk):
     try:
         user = UserProfile.objects.get(pk=pk)
@@ -33,6 +36,7 @@ def retrieve_user(request, pk):
 
 # UPDATE a user by ID
 @api_view(['PUT', 'PATCH'])
+@permission_classes([IsAuthenticated])
 def update_user(request, pk):
     try:
         user = UserProfile.objects.get(pk=pk)
@@ -48,7 +52,7 @@ def update_user(request, pk):
 
 # DELETE a user by ID
 @api_view(['DELETE'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def delete_user(request, pk):
     try:
         user = UserProfile.objects.get(pk=pk)
