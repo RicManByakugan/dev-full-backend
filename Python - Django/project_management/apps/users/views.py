@@ -2,57 +2,58 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Publication
-from .serializers import PublicationSerializer
+from .models import UserProfile
+from .serializers import UserSerializer
 
-# List all publications
+# List all users
 @api_view(['GET'])
-def list_publications(request):
-    publications = Publication.objects.all()
-    serializer = PublicationSerializer(publications, many=True)
+def list_users(request):
+    users = UserProfile.objects.all()
+    serializer = UserSerializer(users, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
-# Create a new publication
+# CREATE a user
 @api_view(['POST'])
-def create_publication(request):
-    serializer = PublicationSerializer(data=request.data)
+def create_user(request):
+    serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# Retrieve a single publication
+# RETRIEVE a user by ID
 @api_view(['GET'])
-def retrieve_publication(request, pk):
+def retrieve_user(request, pk):
     try:
-        publication = Publication.objects.get(pk=pk)
-    except Publication.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    
-    serializer = PublicationSerializer(publication)
+        user = UserProfile.objects.get(pk=pk)
+    except UserProfile.DoesNotExist:
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+    serializer = UserSerializer(user)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
-# Update an existing publication
-@api_view(['PUT'])
-def update_publication(request, pk):
+# UPDATE a user by ID
+@api_view(['PUT', 'PATCH'])
+def update_user(request, pk):
     try:
-        publication = Publication.objects.get(pk=pk)
-    except Publication.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    serializer = PublicationSerializer(publication, data=request.data)
+        user = UserProfile.objects.get(pk=pk)
+    except UserProfile.DoesNotExist:
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+    partial_update = request.method == 'PATCH'
+    serializer = UserSerializer(user, data=request.data, partial=partial_update)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# Delete a publication
+# DELETE a user by ID
 @api_view(['DELETE'])
-def delete_publication(request, pk):
+# @permission_classes([IsAuthenticated])
+def delete_user(request, pk):
     try:
-        publication = Publication.objects.get(pk=pk)
-    except Publication.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        user = UserProfile.objects.get(pk=pk)
+    except UserProfile.DoesNotExist:
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
     
-    publication.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+    user.delete()
+    return Response({"message": "User deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
