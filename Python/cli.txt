@@ -2,5 +2,12 @@ pip install django djangorestframework mysqlclient djangorestframework-simplejwt
 
 django-admin startproject project_management
 cd project_management
-django-admin startapp app
+
+mkdir apps
+mkdir apps/users
+mkdir apps/projects
+mkdir apps/publications
+python manage.py startapp users apps/users
+python manage.py startapp projects apps/projects
+python manage.py startapp publications apps/publications
 
