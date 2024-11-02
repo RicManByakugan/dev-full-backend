@@ -1,0 +1,6 @@
+pip install django djangorestframework mysqlclient djangorestframework-simplejwt
+
+django-admin startproject project_management
+cd project_management
+django-admin startapp app
+
