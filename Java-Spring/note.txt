@@ -23,3 +23,6 @@ taskkill /PID 123 /F
 
 
 mvn clean install -U
+
+Utils for restet commit
+git reset HEAD~1
