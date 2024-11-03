@@ -1,0 +1,25 @@
+/src
+  /main
+    /java
+      /com
+        /example
+          /projectmanagement
+            /controllers - Class
+            /models - Class Entity
+            /repositories - Interface JPARepository
+            /services - Class Service
+            /security
+            /dto
+          main
+    /resources
+      application.properties
+/test
+
+
+Port for dev
+netstat -aon | findstr :8080
+tasklist /FI "PID eq <PID>" - Find
+taskkill /PID 123 /F
+
+
+mvn clean install -U
