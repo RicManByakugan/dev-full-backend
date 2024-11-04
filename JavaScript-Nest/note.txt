@@ -1,0 +1,9 @@
+npm install -g @nestjs/cli
+nest new project_management
+
+ORM Mysql
+npm install @nestjs/typeorm typeorm mysql2
+
+For env 
+npm install @nestjs/config
+
