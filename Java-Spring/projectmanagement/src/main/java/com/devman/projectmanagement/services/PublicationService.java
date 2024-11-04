@@ -18,5 +18,9 @@ public class PublicationService {
     public List<Publication> getAllPublication(){
         return this.publicationRepository.findAll();
     }
-    
+
+    public Publication createPublication(Publication publication){
+        return this.publicationRepository.save(publication);
+    }
+
 }

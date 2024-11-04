@@ -16,7 +16,6 @@ public class Publication {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name= "publication_id")
     private Project project;
 
     public Long getId() {
