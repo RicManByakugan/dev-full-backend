@@ -2,11 +2,12 @@ import { Body, Controller, Get, Post, Req, Res, Param, NotFoundException, Query 
 import { Request, Response } from 'express';
 import { ToDo } from './entity/Todo.entity';
 import { AddTodoDTO } from './dto/add-todo.dto';
+import { TodoService } from './todo.service';
 
 @Controller('todo')
 export class TodoController {
 
-    private todos: ToDo[] = [];
+    constructor(private todoService: TodoService) {}
 
     @Get('gettodo/:id/:autre')
     getTodoById(
@@ -14,10 +15,7 @@ export class TodoController {
         @Param('id') id
     ) {
         console.log("Get todo by " + param.id + " avec autre " + param.autre);
-        const todo = this.todos.find(todo => todo.id == id)
-        if (todo)
-            return todo;
-        throw new NotFoundException("Todo not found");
+        return this.todoService.findById(id);
     }
 
     @Get("alltodo")
@@ -25,24 +23,14 @@ export class TodoController {
         @Query() query
     ) {
         console.log("Query", query);
-        return this.todos;
+        return this.todoService.findAll();
     }
 
     @Post("addtodo")
     addTodo(
         @Body() body: AddTodoDTO
     ) {
-        const todo = new ToDo()
-        const {name, email} = body;
-        todo.name = name
-        todo.email = email
-
-        if(this.todos.length){
-            todo.id = this.todos[this.todos.length - 1].id + 1;
-        }else{
-            todo.id = 1;
-        }
-        this.todos.push(todo);
+        const todo = this.todoService.create(body);
         return todo;
     }
 
@@ -53,31 +41,14 @@ export class TodoController {
     ){
         console.log("id", id);
         console.log("body", id);
-        const index = this.todos.findIndex(todo => todo.id == id);
-        if (index === -1) {
-            throw new NotFoundException("Todo not found");
-        }
-        this.todos[index] = {
-            ...this.todos[index],
-            ...body
-        }
-        return this.todos[index];
+        return this.todoService.update(id, body);
     }
 
     @Post("deletetodo/:id")
     deleteTodo(
         @Param('id') id
     ) {
-        const index = this.todos.findIndex(todo => todo.id == id);
-        if (index === -1) {
-            throw new NotFoundException("Todo not found");
-        }
-        // this.todos = this.todos.filter(todo => todo.id != id);
-        this.todos.splice(index, 1);
-        return {
-            message: "Delete todo",
-            todos: id
-        };
+        return this.todoService.delete(id);
     }
 
     @Get("all")
