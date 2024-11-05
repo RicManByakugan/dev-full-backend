@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post, Req, Res, Param, NotFoundException, Query } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { ToDo } from './entity/Todo.entity';
+import { AddTodoDTO } from './dto/add-todo.dto';
 
 @Controller('todo')
 export class TodoController {
@@ -29,15 +30,20 @@ export class TodoController {
 
     @Post("addtodo")
     addTodo(
-        @Body() body: ToDo
+        @Body() body: AddTodoDTO
     ) {
-        if (body.id === undefined) {
-            body.id = this.todos[this.todos.length - 1].id + 1;
-        } else {
-            body.id = 1
+        const todo = new ToDo()
+        const {name, email} = body;
+        todo.name = name
+        todo.email = email
+
+        if(this.todos.length){
+            todo.id = this.todos[this.todos.length - 1].id + 1;
+        }else{
+            todo.id = 1;
         }
-        this.todos.push(body);
-        return this.todos;
+        this.todos.push(todo);
+        return todo;
     }
 
     @Post("updatetodo/:id")
