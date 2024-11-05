@@ -7,3 +7,15 @@ npm install @nestjs/typeorm typeorm mysql2
 For env 
 npm install @nestjs/config
 
+
+Create all module, service, controller
+nest g module user
+nest g service user
+nest g controller user
+nest g module projet
+nest g service projet
+nest g controller projet
+nest g module publication
+nest g service publication
+nest g controller publication
+
