@@ -1,24 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './entity/user.entity';
-import { Projet } from './entity/projet.entity';
-import { Publication } from './entity/publication.entity';
-import { UserService } from './services/user/user.service';
-import { PublicationService } from './services/publication/publication.service';
-import { ProjetService } from './services/projet/projet.service';
-import { UserService } from './controller/user/user.service';
-import { PublicationService } from './controller/publication/publication.service';
-import { ProjetService } from './controller/projet/projet.service';
-import { ProjetController } from './controller/projet/projet.controller';
+import { Projet } from './entity/projet/projet.entity';
+import { Publication } from './entity/publication/publication.entity';
 import { UserModule } from './module/user/user.module';
 import { PublicationModule } from './module/publication/publication.module';
+import { User } from './entity/user/user.entity';
 import { ProjetModule } from './module/projet/projet.module';
-import { UserController } from './controller/user/user.controller';
-import { PublicationController } from './controller/publication/publication.controller';
-import { ProjetController } from './controller/projet/projet.controller';
 
 @Module({
   imports: [
@@ -38,7 +26,5 @@ import { ProjetController } from './controller/projet/projet.controller';
     PublicationModule,
     UserModule,
   ],
-  controllers: [AppController, ProjetController, UserController, PublicationController],
-  providers: [AppService, UserService, PublicationService, ProjetService],
 })
 export class AppModule {}
