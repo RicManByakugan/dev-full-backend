@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
-import { User } from './user.entity';
 import { Publication } from '../publication/publication.entity';
+import { User } from '../user/user.entity';
 
 @Entity()
 export class Projet {
