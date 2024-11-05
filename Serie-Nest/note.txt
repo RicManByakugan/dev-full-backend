@@ -4,3 +4,4 @@ nest --help
 
 nest new 
 nest g mo
+nest g co --no-spec
