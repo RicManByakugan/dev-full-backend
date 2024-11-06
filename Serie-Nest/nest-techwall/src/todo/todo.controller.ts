@@ -4,6 +4,7 @@ import { ToDo } from './entity/Todo.entity';
 import { AddTodoDTO } from './dto/add-todo.dto';
 import { TodoService } from './todo.service';
 import { GetPaginedTodoDTO } from './dto/get-pagined.todo';
+import { UpperAndFusionPipe } from 'src/pipes/upper-and-fusion/upper-and-fusion.pipe';
 
 @Controller('todo')
 export class TodoController {
@@ -58,6 +59,14 @@ export class TodoController {
         console.log(typeof id);
         return this.todoService.delete(id);
         // return this.todoService.delete(+id);
+    }
+
+    @Post("testpipe")
+    testPipe(
+        @Body(UpperAndFusionPipe) data,
+        @Param(UpperAndFusionPipe) dataPipe
+    ){
+        return data;
     }
 
     // END CRUD

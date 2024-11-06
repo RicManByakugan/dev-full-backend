@@ -11,3 +11,5 @@ npm i class-validator class-transformer
 
 List validator
 https://github.com/typestack/class-validator
+
+nest g pi pipes/UpperAndFusion
