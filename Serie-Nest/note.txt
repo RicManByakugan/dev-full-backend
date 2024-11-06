@@ -28,3 +28,6 @@ npm i helmet
 
 npm i @nest-middlewares/helmet
 npm i @nest-middlewares/cors
+
+
+nest g itc interceptors/duration

@@ -1,11 +1,13 @@
-import { Body, Controller, Get, Post, Req, Res, Param, NotFoundException, Query, ParseIntPipe, HttpStatus, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res, Param, NotFoundException, Query, ParseIntPipe, HttpStatus, ValidationPipe, UseInterceptors, Headers } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { ToDo } from './entity/Todo.entity';
 import { AddTodoDTO } from './dto/add-todo.dto';
 import { TodoService } from './todo.service';
 import { GetPaginedTodoDTO } from './dto/get-pagined.todo';
 import { UpperAndFusionPipe } from 'src/pipes/upper-and-fusion/upper-and-fusion.pipe';
+import { DurationInterceptor } from 'src/interceptors/duration/duration.interceptor';
 
+@UseInterceptors(DurationInterceptor)
 @Controller('todo')
 export class TodoController {
 
@@ -22,8 +24,10 @@ export class TodoController {
 
     @Get("alltodo")
     getAllTodos(
+        @Headers() header,
         @Query() query: GetPaginedTodoDTO
     ) {
+        console.log("Header", header);
         console.log("Query", query);
         console.log(query instanceof GetPaginedTodoDTO);
         return this.todoService.findAll();
