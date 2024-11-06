@@ -28,9 +28,11 @@ npm i helmet
 
 npm i @nest-middlewares/helmet
 npm i @nest-middlewares/cors
-
-
 nest g itc interceptors/duration
 
 
 dotenv js
+npm i --save @nestjs/config
+
+
+npm install --save @nestjs/typeorm typeorm mysql
