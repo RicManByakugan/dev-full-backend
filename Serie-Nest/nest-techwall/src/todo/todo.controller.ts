@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { ToDo } from './entity/Todo.entity';
 import { AddTodoDTO } from './dto/add-todo.dto';
 import { TodoService } from './todo.service';
+import { GetPaginedTodoDTO } from './dto/get-pagined.todo';
 
 @Controller('todo')
 export class TodoController {
@@ -20,9 +21,10 @@ export class TodoController {
 
     @Get("alltodo")
     getAllTodos(
-        @Query() query
+        @Query() query: GetPaginedTodoDTO
     ) {
         console.log("Query", query);
+        console.log(query instanceof GetPaginedTodoDTO);
         return this.todoService.findAll();
     }
 

@@ -1,6 +1,14 @@
-export class GetPaginedTodo{
+import { Type } from "class-transformer";
+import { IsNumber, IsOptional } from "class-validator";
+
+export class GetPaginedTodoDTO {
+    @IsNumber()
+    @IsOptional()
+    @Type(() => Number) // LIKE PARSEINT - TypeTransformer
     page: number;
-    limit: number;
-    total: number;
-    data: any;
+    
+    @IsNumber()
+    @IsOptional()
+    @Type(() => Number)
+    item: any;
 }
