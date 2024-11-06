@@ -5,3 +5,9 @@ nest --help
 nest new 
 nest g mo
 nest g co --no-spec
+
+Pipe
+npm i class-validator class-transformer
+
+List validator
+https://github.com/typestack/class-validator

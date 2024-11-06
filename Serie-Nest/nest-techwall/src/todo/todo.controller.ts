@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, Res, Param, NotFoundException, Query, ParseIntPipe, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res, Param, NotFoundException, Query, ParseIntPipe, HttpStatus, ValidationPipe } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { ToDo } from './entity/Todo.entity';
 import { AddTodoDTO } from './dto/add-todo.dto';
@@ -29,6 +29,7 @@ export class TodoController {
     @Post("addtodo")
     addTodo(
         @Body() body: AddTodoDTO
+        // @Body(ValidationPipe) body: AddTodoDTO
     ) {
         const todo = this.todoService.create(body);
         return todo;
