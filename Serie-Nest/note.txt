@@ -16,3 +16,15 @@ nest g pi pipes/UpperAndFusion
 
 
 nest g mi middlewares/first
+
+
+middleware log for dev
+morgan
+npm install --save @nest-middlewares/morgan
+
+Security
+npm i helmet
+
+
+npm i @nest-middlewares/helmet
+npm i @nest-middlewares/cors
