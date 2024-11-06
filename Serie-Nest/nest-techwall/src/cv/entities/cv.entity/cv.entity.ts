@@ -1,9 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Timestamps } from "src/generique/timestamps";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity("cv")
-export class CvEntity {
-    @PrimaryGeneratedColumn()
+export class CvEntity extends Timestamps{
     // @PrimaryGeneratedColumn("uuid")
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column({
@@ -31,4 +32,5 @@ export class CvEntity {
     
     @Column()
     path: string;
+
 }
