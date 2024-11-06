@@ -36,3 +36,11 @@ npm i --save @nestjs/config
 
 
 npm install --save @nestjs/typeorm typeorm mysql
+
+
+*----*
+nest g mo cv
+nest g co cv
+nest g s cv
+
+nest g class cv/entities/cv.entity
