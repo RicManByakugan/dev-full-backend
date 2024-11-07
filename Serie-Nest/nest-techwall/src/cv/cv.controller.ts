@@ -21,9 +21,9 @@ export class CvController {
         return await this.cvService.restoreCv(id);
     }
 
-    @Get(':id')
-    async getOneCv(@Param('id', ParseIntPipe) id: number): Promise<CvEntity>{
-        return await this.cvService.findOne(id);
+    @Get('stat')
+    async getStat(){
+        return await this.cvService.statCvNombreByAge();
     }
 
     @Post()
@@ -58,5 +58,9 @@ export class CvController {
         return await this.cvService.softRemoveCv(id);
     }
 
+    @Get(':id')
+    async getOneCv(@Param('id', ParseIntPipe) id: number): Promise<CvEntity>{
+        return await this.cvService.findOne(id);
+    }
 
 }

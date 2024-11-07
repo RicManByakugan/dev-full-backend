@@ -96,4 +96,28 @@ export class CvService {
         }
         return cv;
     }
+
+    // NOMBRE DE CV PAR AGE
+    // async getNombreCvByAge(age: number){
+    //     return await this.cvRepository.count({ where: { age } });
+    // }
+    async statCvNombreByAge(){
+        // Create Query Builder
+        const qb = this.cvRepository.createQueryBuilder('cv');
+        // await qb.select('cv.age as age, count(cv.age) as nombre')
+        //     .groupBy('cv.age')
+        //     .orderBy('cv.age', 'ASC');
+        //     console.log(qb.getSql());
+        //     return  qb.getRawMany();
+        await qb.select('cv.age as age, count(cv.age) as nombre')
+            // .where('cv.age > :age', { age: 18 })
+            .where('cv.age > :age')
+            .setParameters({age: 18})
+            .groupBy('cv.age')
+            .orderBy('cv.age', 'ASC');
+            console.log(qb.getSql());
+            return  qb.getRawMany();
+    }
+
+
 }
