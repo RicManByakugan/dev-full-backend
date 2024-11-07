@@ -16,6 +16,11 @@ export class CvController {
         return await this.cvService.findAll();
     }
 
+    @Get('recover/:id')
+    async recoverCv(@Param('id', ParseIntPipe) id: number){
+        return await this.cvService.restoreCv(id);
+    }
+
     @Get(':id')
     async getOneCv(@Param('id', ParseIntPipe) id: number): Promise<CvEntity>{
         return await this.cvService.findOne(id);
@@ -46,6 +51,11 @@ export class CvController {
     @Delete('removecv/:id')
     async deleteCv(@Param('id', ParseIntPipe) id: number){
         return await this.cvService.removeCv(id);
+    }
+
+    @Delete('/softdelete/:id')
+    async softDeleteCv(@Param('id', ParseIntPipe) id: number){
+        return await this.cvService.softRemoveCv(id);
     }
 
 

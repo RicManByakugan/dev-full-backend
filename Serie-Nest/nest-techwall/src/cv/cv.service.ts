@@ -62,4 +62,38 @@ export class CvService {
         }
         return await this.cvRepository.remove(cvRemove);
     }
+
+    // REMOVE WITH CRIETERIA
+    async removeCvWithCretiria(criteria){
+        return await this.cvRepository.delete(criteria);
+    }
+
+    // SOFT REMOVE CV
+    async softRemoveCv(id: number){
+        // const cvRemove = await this.cvRepository.findOne({ where: { id } });
+        // if(!cvRemove){
+        //     throw new NotFoundException(`Le cv d'id ${id} n'existe pas`);
+        // }
+        const cv = await this.findCvAsyncById(id);
+        return await this.cvRepository.softDelete(id);
+        // return await this.cvRepository.softRemove(cv);
+    }
+
+    // RESTORE CV
+    async restoreCv(id: number){
+        // const cvRestore = await this.cvRepository.query(`SELECT * FROM cv WHERE id = ${id}`);
+        // if(!cvRestore){
+        //     throw new NotFoundException(`Le cv d'id ${id} n'existe pas`);
+        // }
+        return await this.cvRepository.restore(id);
+    }
+
+    // FIND ASYNC BY ID
+    async findCvAsyncById(id: number){
+        const cv = await this.cvRepository.findOne({ where: { id } });
+        if(!cv){
+            throw new NotFoundException(`Le cv d'id ${id} n'existe pas`);
+        }
+        return cv;
+    }
 }
