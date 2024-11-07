@@ -17,7 +17,9 @@ export class CvService {
     }
 
     async findOne(id: number): Promise<CvEntity>{
-        return await this.cvRepository.findOne({ where: { id } });
+        const cv = await this.cvRepository.findOne({ where: { id } });
+        if(cv) return cv;
+        throw new NotFoundException(`Le cv d'id ${id} n'existe pas`);
     }
 
     async create(cvdto: AddCvDTO): Promise<CvEntity>{
@@ -46,7 +48,18 @@ export class CvService {
     }
     
 
+    // DELETE BY ID
     async delete(id: number): Promise<void>{
         await this.cvRepository.delete(id);
+        // await this.cvRepository.delete([4, 2]);
+    }
+
+    // REMOVE ENTITY CV
+    async removeCv(id: number){
+        const cvRemove = await this.cvRepository.findOne({ where: { id } });
+        if(!cvRemove){
+            throw new NotFoundException(`Le cv d'id ${id} n'existe pas`);
+        }
+        return await this.cvRepository.remove(cvRemove);
     }
 }
