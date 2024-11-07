@@ -1,6 +1,6 @@
 import { Timestamps } from "src/generique/timestamps";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-
+import { Column, ManyToOne, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { UserEntity } from "../user.entity/user.entity";
 @Entity("cv")
 export class CvEntity extends Timestamps{
     // @PrimaryGeneratedColumn("uuid")
@@ -32,5 +32,16 @@ export class CvEntity extends Timestamps{
     
     @Column()
     path: string;
+
+    @ManyToOne(
+        () => UserEntity, 
+        user => user.cv,
+        // {
+        //     cascade: true,
+        //     nullable: true,
+        //     eager: true
+        // }
+    )
+    user: UserEntity;
 
 }
