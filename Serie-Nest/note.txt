@@ -44,3 +44,7 @@ nest g co cv
 nest g s cv
 
 nest g class cv/entities/cv.entity
+
+
+Auth Cours
+use bycrypt

@@ -1,6 +1,6 @@
 import { Timestamps } from "src/generique/timestamps";
 import { Column, ManyToOne, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { UserEntity } from "../user.entity/user.entity";
+import { UserEntity } from "../../../user/entities/user.entity/user.entity";
 @Entity("cv")
 export class CvEntity extends Timestamps{
     // @PrimaryGeneratedColumn("uuid")
