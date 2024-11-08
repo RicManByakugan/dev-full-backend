@@ -12,7 +12,7 @@ export class UserController {
     ) {}
 
     @Post('subscribe')
-    async subscribe(@Body() userDto: UserSubscribeDto): Promise<UserEntity> {
+    async register(@Body() userDto: UserSubscribeDto): Promise<Partial<UserEntity>> {
         return await this.userService.subscribe(userDto);
     }
 

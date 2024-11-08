@@ -13,7 +13,7 @@ export class UserService {
         private userRepository: Repository<UserEntity>
     ) {}
 
-    async subscribe(userDto: UserSubscribeDto): Promise<UserEntity> {
+    async subscribe(userDto: UserSubscribeDto): Promise<Partial<UserEntity>> {
         const user = this.userRepository.create({
             ...userDto
         });
@@ -25,6 +25,9 @@ export class UserService {
             console.log('Erreur lors de l\'enregistrement de l\'utilisateur');
             // throw new ConflictException('Erreur lors de l\'enregistrement de l\'utilisateur');
         }
+        // SEND EMAIL
+        delete user.password;
+        delete user.salt;
         return user;
     }
 }
