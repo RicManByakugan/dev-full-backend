@@ -16,17 +16,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     ) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-            ignoreElements: false,
             secretOrKey: process.env.SECRET,
-            passReqToCallback: true
         });
     }
 
     async validate(payload: PayloadInterface) {
-        const user = await this.userRepository.findOne({ where: { username: payload.username } });
+        const user = await this.userRepository.findOne({ where: { id: payload.id } });
         if (user) {
-            const { salt, password, ...result } = user;
-            return result;
+            // const { salt, password, ...result } = user;
+            delete user.salt;
+            delete user.password;
+            return user;
         }else{
             throw new UnauthorizedException('Invalid credentials');
         }    

@@ -1,6 +1,6 @@
 import { Column, OneToMany, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { CvEntity } from "../../../cv/entities/cv.entity/cv.entity";
-import { IsString } from "class-validator";
+import { IsString, IsOptional } from "class-validator";
 import { UserRoleEnum } from "src/user/enums/user.role.enum";
 import { Timestamps } from "src/generique/timestamps";
 
@@ -31,6 +31,7 @@ export class UserEntity extends Timestamps {
     })
     role: string;
     
+    @IsOptional()
     @OneToMany(
         () => CvEntity,
         cv => cv.user,

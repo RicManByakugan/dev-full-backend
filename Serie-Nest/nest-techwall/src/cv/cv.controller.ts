@@ -1,9 +1,12 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { CvService } from './cv.service';
+import { User } from "../user/decorator/user.decorator"
 import { CvEntity } from './entities/cv.entity/cv.entity';
+import { UserEntity } from '../user/entities/user.entity/user.entity';
 import { AddCvDTO } from './dto/cv.dto';
 import { UpdateCvDTO } from './dto/update.cv.dto';
 import { JwtGuard } from 'src/user/guard/jwt.guard';
+import { Request } from 'express';
 
 @Controller('cv')
 export class CvController {
@@ -12,9 +15,12 @@ export class CvController {
         private cvService: CvService
     ){}
 
+    @UseGuards(JwtGuard)
     @Get()
-    async getAllCv(): Promise<CvEntity[]>{
-        return await this.cvService.findAll();
+    async getAllCv(
+        @User() user: UserEntity
+    ): Promise<CvEntity[]>{
+        return await this.cvService.findAll(user);
     }
 
     @UseGuards(JwtGuard)
@@ -30,8 +36,12 @@ export class CvController {
 
     @UseGuards(JwtGuard)
     @Post()
-    async createCv(@Body() cv: AddCvDTO): Promise<CvEntity>{
-        return await this.cvService.create(cv);
+    async createCv(
+        @Body() cv: AddCvDTO,
+        @Req() request: Request
+    ): Promise<CvEntity>{
+        const user = request.user
+        return await this.cvService.create(cv, user);
     }
 
     @UseGuards(JwtGuard)
