@@ -5,13 +5,15 @@ import { Repository } from 'typeorm';
 import { UserEntity } from '../user/entities/user.entity/user.entity';
 import { UserCredentialDto } from './dto/user.credential.dto';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
 
     constructor(
         @InjectRepository(UserEntity)
-        private userRepository: Repository<UserEntity>
+        private userRepository: Repository<UserEntity>,
+        private jwtService: JwtService
     ) { }
 
     async subscribe(userDto: UserSubscribeDto): Promise<Partial<UserEntity>> {
@@ -32,7 +34,7 @@ export class UserService {
         return user;
     }
 
-    async login(credential: UserCredentialDto): Promise<Partial<UserEntity>> {
+    async login(credential: UserCredentialDto): Promise<Partial<any>> {
         const { username, password } = credential;
 
         const user = await this.userRepository.createQueryBuilder("user")
@@ -44,7 +46,13 @@ export class UserService {
         }
         const hashPassword = await bcrypt.hash(password, user.salt);
         if (hashPassword === user.password) {
+            const payload =  {
+                username: user.username,
+                id: user.id
+            }
+            const token = await this.jwtService.sign(payload);
             return {
+                token: token,
                 username,
                 role: user.role,
                 email: user.email

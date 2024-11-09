@@ -48,3 +48,9 @@ nest g class cv/entities/cv.entity
 
 Auth Cours
 use bycrypt
+
+
+passport
+
+npm i --save @nestjs/passport passport passport-jwt
+npm i --save @nestjs/jwt passport-jwt
