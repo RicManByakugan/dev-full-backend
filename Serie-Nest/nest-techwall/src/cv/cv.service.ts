@@ -4,7 +4,6 @@ import { CvEntity } from './entities/cv.entity/cv.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AddCvDTO } from './dto/cv.dto';
 import { UpdateCvDTO } from './dto/update.cv.dto';
-import { UserEntity } from '../user/entities/user.entity/user.entity'
 
 @Injectable()
 export class CvService {
@@ -15,7 +14,12 @@ export class CvService {
 
     async findAll(user): Promise<CvEntity[]> {
         console.log(user)
-        return await this.cvRepository.find({ where: { user } });
+        // if (user.role == UserRoleEnum.ADMIN){
+        //     return await this.cvRepository.find({ where: { user: {id: user.id} } });
+        // }else{
+        //     return await this.cvRepository.find();
+        // }
+        return await this.cvRepository.find({ where: { user: user } });
         // const qr = this.cvRepository.createQueryBuilder('cv')
         // await qr.select("*")
         //     .where("cv.userId = :id", {id: user.id})
@@ -102,6 +106,10 @@ export class CvService {
         if (!cv) {
             throw new NotFoundException(`Le cv d'id ${id} n'existe pas`);
         }
+
+        // if (user.id -- Params == cv.user.id) {
+        //     OK
+        // }
         return cv;
     }
 
