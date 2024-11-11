@@ -92,12 +92,28 @@ export class CvService {
     }
 
     // RESTORE CV
-    async restoreCv(id: number) {
+    async restoreCv(id: number, user) {
         // const cvRestore = await this.cvRepository.query(`SELECT * FROM cv WHERE id = ${id}`);
         // if(!cvRestore){
         //     throw new NotFoundException(`Le cv d'id ${id} n'existe pas`);
         // }
-        return await this.cvRepository.restore(id);
+
+        // CV MUST NULL
+        // const cv = await this.cvRepository.findOne({ where: { id } });
+        // if (!cv) {
+        //     throw new NotFoundException(`Le cv d'id ${id} n'existe pas`);
+        // }
+        // USE QUERY RESOLVE BUG
+        const cv = this.cvRepository.query(`SELECT * FROM cv WHERE id = ${id}`);
+        if (!cv) {
+            throw new NotFoundException(`Le cv d'id ${id} n'existe pas`);
+        }
+        if(this.isOwner(cv, user)){
+            return await this.cvRepository.restore(id);
+
+        }else{
+            throw new NotFoundException(`Vous n'avez pas le droit de restaurer ce cv`);
+        }
     }
 
     // FIND ASYNC BY ID
@@ -135,5 +151,8 @@ export class CvService {
         return qb.getRawMany();
     }
 
+    private isOwner(cv: any, user): boolean {
+        return cv.user.id === user.id
+    }
 
 }
