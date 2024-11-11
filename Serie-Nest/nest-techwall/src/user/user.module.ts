@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import * as dotenv from 'dotenv';
-import { JwtStrategy } from './strategy/passport.jwt.strategy';
+import { JwtAuhtStrategy } from './strategy/passport.jwt.auth.strategy';
 
 
 dotenv.config();
@@ -26,7 +26,7 @@ dotenv.config();
   controllers: [UserController],
   providers: [
     UserService,
-    JwtStrategy
+    JwtAuhtStrategy
   ]
 })
 export class UserModule { }

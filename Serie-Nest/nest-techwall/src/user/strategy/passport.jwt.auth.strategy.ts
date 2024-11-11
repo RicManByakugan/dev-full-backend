@@ -9,7 +9,7 @@ import { UserEntity } from "../entities/user.entity/user.entity";
 
 dotenv.config();
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtAuhtStrategy extends PassportStrategy(Strategy) {
     constructor(
         @InjectRepository(UserEntity)
         private readonly userRepository: Repository<UserEntity>

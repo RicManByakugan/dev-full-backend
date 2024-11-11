@@ -5,7 +5,7 @@ import { CvEntity } from './entities/cv.entity/cv.entity';
 import { UserEntity } from '../user/entities/user.entity/user.entity';
 import { AddCvDTO } from './dto/cv.dto';
 import { UpdateCvDTO } from './dto/update.cv.dto';
-import { JwtGuard } from 'src/user/guard/jwt.guard';
+import { JwtAuthGuard } from 'src/user/guard/jwt.auth.guard';
 import { Request } from 'express';
 
 @Controller('cv')
@@ -15,7 +15,7 @@ export class CvController {
         private cvService: CvService
     ){}
 
-    @UseGuards(JwtGuard)
+    @UseGuards(JwtAuthGuard)
     @Get()
     async getAllCv(
         @User() user: UserEntity
@@ -23,7 +23,7 @@ export class CvController {
         return await this.cvService.findAll(user);
     }
 
-    @UseGuards(JwtGuard)
+    @UseGuards(JwtAuthGuard)
     @Get('recover/:id')
     async recoverCv(@Param('id', ParseIntPipe) id: number){
         return await this.cvService.restoreCv(id);
@@ -34,7 +34,7 @@ export class CvController {
         return await this.cvService.statCvNombreByAge();
     }
 
-    @UseGuards(JwtGuard)
+    @UseGuards(JwtAuthGuard)
     @Post()
     async createCv(
         @Body() cv: AddCvDTO,
@@ -44,7 +44,7 @@ export class CvController {
         return await this.cvService.create(cv, user);
     }
 
-    @UseGuards(JwtGuard)
+    @UseGuards(JwtAuthGuard)
     @Patch(':id')
     async updateCv(
         @Param('id', ParseIntPipe) id: number,
@@ -53,7 +53,7 @@ export class CvController {
         return await this.cvService.update(id, cv);
     }
 
-    @UseGuards(JwtGuard)
+    @UseGuards(JwtAuthGuard)
     @Patch()
     async updateCv2(
         @Body() updateObject, 
@@ -63,12 +63,12 @@ export class CvController {
     }
 
 
-    @UseGuards(JwtGuard)
+    @UseGuards(JwtAuthGuard)
     @Delete('removecv/:id')
     async deleteCv(@Param('id', ParseIntPipe) id: number){
         return await this.cvService.removeCv(id);
     }
-    @UseGuards(JwtGuard)
+    @UseGuards(JwtAuthGuard)
     @Delete('/softdelete/:id')
     async softDeleteCv(@Param('id', ParseIntPipe) id: number){
         return await this.cvService.softRemoveCv(id);
