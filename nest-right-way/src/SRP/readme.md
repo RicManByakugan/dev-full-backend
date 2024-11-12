@@ -1,10 +1,11 @@
 SRP
+Single Responsibility Principe 
+
 module
 controller
 service
 
-
-service to only one thing = createUser, sendMail
+service manage one thing, sendMail
     service : orderService
                 other
 controller to handle multiple things
