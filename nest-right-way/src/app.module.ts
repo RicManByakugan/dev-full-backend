@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { OrderModule } from './srp/order/order.module';
 import { ProductModule } from './srp/product/product.module';
 import { UserModule } from './srp/user/user.module';
-import { GreeterController } from './ocp/greeter/greeter.controller';
+import { GreeterController } from './OCP/greeter/controller/greeter.controller';
 import { GreeterModule } from './ocp/greeter/greeter.module';
 
 @Module({

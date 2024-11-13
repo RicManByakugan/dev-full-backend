@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Greeting } from '../interface/greet.interface';
+import { Greeting } from '../../interface/greet.interface';
 
 @Injectable()
 export class GreeterService {
